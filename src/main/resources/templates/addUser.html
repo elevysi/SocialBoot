@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Add User</title>
+</head>
+<body>
+To Add a User Form
+<form method="POST" th:object="${user}">
+	<label>Username:</label>
+	<input type="text" name="username" th:field="*{username}"/>
+	
+	<label>First Name:</label>
+	<input type="text" name="email" th:field="*{first_name}"/>
+	
+	<label>Last Name:</label>
+	<input type="text" name="email" th:field="*{last_name}"/>
+	
+	<label>Email:</label>
+	<input type="text" name="email" th:field="*{email}"/>
+	
+	<label>Password:</label>
+	<input type="password" name="password" th:field="*{password}"/>
+	
+	<input type="submit" />
+</form>
+</body>
+</html>
