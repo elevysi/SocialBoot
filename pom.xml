@@ -83,6 +83,23 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		
+		<!-- Spring Cloud Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<version>1.4.2.RELEASE</version>
+		</dependency>
 		
 	</dependencies>
 
@@ -92,8 +109,62 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>3.3.2</version>
+				
+				<executions>
+            		<execution>
+			            <id>process</id>
+			            <phase>generate-sources</phase>
+			            <goals>
+			              <goal>process</goal>
+			            </goals>
+			           
+			            <configuration>
+			            	<outputDirectory>${project.build.directory}/generated-sources/jpametamodel</outputDirectory>
+			            	<processors>
+			            		<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+			            	</processors>
+			            </configuration>
+			          </execution>
+            	
+            	</executions>
+            	
+            	<dependencies>
+			       <dependency>
+			       	<groupId>org.hibernate</groupId>
+			       	<artifactId>hibernate-jpamodelgen</artifactId>
+			       	<version>5.2.12.Final</version>
+			       </dependency>
+            	</dependencies>
+				
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+			        <execution>
+			            <id>add-source</id>
+			            <phase>generate-sources</phase>
+			            <goals>
+			                <goal>add-source</goal>
+			            </goals>
+			            <configuration>
+			                <sources>
+			                    <source>${project.build.directory}/generated-sources/jpametamodel</source>
+			                </sources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+
 		</plugins>
 	</build>
+	
 
 
 </project>
