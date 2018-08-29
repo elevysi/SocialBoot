@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+<!-- Root Pages -->
+
+<definition name="root">
+	<put-attribute name="title" value="Elevysi" />
+	<put-attribute name="breadcrumb" value="/WEB-INF/views/layout/breadcrumb.jsp" />
+	<put-attribute name="topbar" value="/WEB-INF/views/layout/topbar.jsp" />
+	<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar.jsp" />
+	<put-attribute name="rightVBar" value="/WEB-INF/views/layout/rightBar.jsp" />
+	<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	<put-attribute name="bodyjs" value="/WEB-INF/views/layout/globaljs.jsp" />
+	<put-attribute name="headTag" value="/WEB-INF/views/layout/fileHead.jsp" />
+</definition>
+
+<definition name="common" extends="root" template="/WEB-INF/views/layout/default.jsp">
+    <put-attribute name="title" value="Blog" />
+</definition>
+
+<!-- Home Pages -->
+
+<definition name="root1.9">
+	<put-attribute name="title" value="Elevysi" />
+	<put-attribute name="topbar" value="/WEB-INF/views/layout1.9/home/topbar.jsp" />
+	<put-attribute name="navbar" value="/WEB-INF/views/layout1.9/home/navbar.jsp" />
+	<put-attribute name="rightVBar" value="/WEB-INF/views/layout1.9/home/rightBar.jsp" />
+	<put-attribute name="footer" value="/WEB-INF/views/layout1.9/home/footer.jsp" />
+	<put-attribute name="sliderMaster" value="/WEB-INF/views/layout1.9/home/sliderMaster.jsp" />
+	<put-attribute name="bodyjs" value="/WEB-INF/views/layout1.9/root/globaljs.jsp" cascade="true"/>
+	<put-attribute name="headTag" value="/WEB-INF/views/layout1.9/home/fileHead.jsp" />
+</definition>
+
+<definition name="common1.9" extends="root1.9" template="/WEB-INF/views/layout1.9/home/default.jsp">
+    <put-attribute name="title" value="Blog" />
+</definition>
+
+<definition name="homeBlog" extends="common1.9">
+  <put-attribute name="title" value="Elevysi - Spring Blog" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/pages/homeBlog.jsp" />
+  <put-attribute name="current" value="index" />
+</definition>
+
+
+<!-- Blog Pages -->
+
+<definition name="rootBlog1.9">
+
+	<put-attribute name="title" value="Blog" cascade="true"/>
+	<put-attribute name="topbar" value="/WEB-INF/views/layout1.9/root/topbar.jsp" />
+	<put-attribute name="navbar" value="/WEB-INF/views/layout1.9/root/navbar.jsp" />
+	<put-attribute name="footer" value="/WEB-INF/views/layout1.9/root/footer.jsp" />
+	<put-attribute name="headTag" value="/WEB-INF/views/layout1.9/root/fileHead.jsp" />
+	<put-attribute name="profileLeftbar" value="/WEB-INF/views/layout1.9/profile/leftbar.jsp" cascade="true"/>
+	<put-attribute name="bodyjs" value="/WEB-INF/views/layout1.9/root/globaljs.jsp" cascade="true"/>
+	<put-attribute name="breadcrumb" value="/WEB-INF/views/layout1.9/root/breadcrumb.jsp" cascade="true" />
+	
+</definition>
+
+<definition name="commonBlog1.9" extends="rootBlog1.9" template="/WEB-INF/views/layout1.9/blog/default.jsp">
+   <put-attribute name="title" value="Blog" cascade="true"/>
+   <put-attribute name="pagination" value="/WEB-INF/views/layout1.9/root/pagination.jsp" cascade="true"/>
+</definition>
+
+<!-- Posts -->
+
+<definition name="viewpost" extends="commonBlog1.9">
+ 
+  <put-attribute name="body" value="/WEB-INF/views/jsp/posts/view.jsp" />
+</definition>
+
+<definition name="addpost" extends="commonBlog1.9">
+  <put-attribute name="title" value="Add Post" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/posts/add.jsp" />
+</definition>
+
+<definition name="editpost" extends="commonBlog1.9">
+  <put-attribute name="title" value="Edit Post" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/posts/edit.jsp" />
+</definition>
+
+<definition name="publicIndexPosts" extends="commonBlog1.9">
+  <put-attribute name="title" value="Posts Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/posts/indexpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/posts" cascade="true"/>
+  
+</definition>
+
+<definition name="publicIndexPlays" extends="commonBlog1.9">
+  <put-attribute name="title" value="Plays Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/plays/indexpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/plays" cascade="true"/>
+</definition>
+
+<definition name="publicIndexAlbums" extends="commonBlog1.9">
+  <put-attribute name="title" value="Albums Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/albums/indexpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/albums" cascade="true"/>
+</definition>
+
+<definition name="publicIndexDossiers" extends="commonBlog1.9">
+  <put-attribute name="title" value="Dossiers Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/dossiers/indexpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/dossiers" cascade="true"/>
+  
+</definition>
+
+<definition name="publicIndexProfiles" extends="commonBlog1.9">
+  <put-attribute name="title" value="Profiles Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/indexpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/profiles" cascade="true"/>
+  
+</definition>
+
+
+<definition name="publicViewProfile" extends="commonBlog1.9">
+  <put-attribute name="title" value="Dossiers Confettis" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/viewpublic.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/profiles" cascade="true"/>
+  
+</definition>
+
+
+<!-- Plays -->
+
+<definition name="viewplay" extends="commonBlog1.9">
+  <put-attribute name="title" value="Play Item" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/plays/view.jsp" />
+</definition>
+
+<definition name="playAdd" extends="commonBlog1.9">
+  <put-attribute name="title" value="Play - Add" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/plays/add.jsp" />
+</definition>
+
+<definition name="editplay" extends="commonBlog1.9">
+  <put-attribute name="title" value="Play - Edit" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/plays/edit.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/plays/view/" cascade="true"/>
+</definition>
+
+<!-- Albums -->
+
+<definition name="upload-album" extends="commonBlog1.9">
+  <put-attribute name="title" value="Upload Pictures" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/uploads/albumUpload.jsp"/>
+</definition>
+
+
+<definition name="albumAdd" extends="commonBlog1.9">
+  <put-attribute name="title" value="Album - Add" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/albums/add.jsp" />
+  <put-attribute name="currentUrl" value="/albums/add/" cascade="true"/>
+</definition>
+
+<definition name="albumView" extends="commonBlog1.9">
+  <put-attribute name="title" value="Album - View" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/albums/view.jsp" />
+  <put-attribute name="currentUrl" value="/albums/view/" cascade="true"/>
+</definition>
+
+<definition name="albumEdit" extends="commonBlog1.9">
+  <put-attribute name="title" value="Album - Edit" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/albums/edit.jsp" />
+  <put-attribute name="currentUrl" value="/albums/edit/" cascade="true"/>
+</definition>
+
+<definition name="search-results" extends="commonBlog1.9">
+    <put-attribute name="title" value="Search Results" cascade="true"/>
+    <put-attribute name="body" value="/WEB-INF/views/jsp/pages/searchResults.jsp"/>
+</definition>
+
+<definition name="search-tree" extends="commonBlog1.9">
+    <put-attribute name="title" value="Search Results" cascade="true"/>
+    <put-attribute name="body" value="/WEB-INF/views/jsp/pages/searchTree.jsp"/>
+</definition>
+
+<!-- Dossiers -->
+
+<definition name="addDossier" extends="commonBlog1.9">
+  <put-attribute name="title" value="Dossier - Add" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/dossiers/add.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/dossiers/add/" cascade="true"/>
+</definition>
+
+<definition name="editDossier" extends="commonBlog1.9">
+  <put-attribute name="title" value="Dossier - Edit" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/dossiers/edit.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/dossiers/edit/" cascade="true"/>
+</definition>
+
+<definition name="viewDossier" extends="commonBlog1.9">
+  <put-attribute name="title" value="Dossier - View" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/dossiers/view.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/dossiers/view/" cascade="true"/>
+</definition>
+
+<definition name="viewCategory" extends="commonBlog1.9">
+  <put-attribute name="title" value="Tag - View" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/categories/view.jsp" cascade="true"/>
+  <put-attribute name="currentUrl" value="/public/tag/view/" cascade="true"/>
+</definition>
+
+<!-- Profile Pages -->
+
+<definition name="commonProfile1.9" extends="rootBlog1.9" template="/WEB-INF/views/layout1.9/profile/default.jsp">
+   <put-attribute name="title" value="Profile" cascade="true"/>
+  
+</definition>
+
+<definition name="profileHome" extends="commonProfile1.9">
+    <put-attribute name="title" value="Profile - Home" cascade="true"/>
+    <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/home.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileView" extends="commonBlog1.9">
+  <put-attribute name="title" value="Profile" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/view.jsp" cascade="true"/>
+</definition>
+
+<definition name="profile" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/profile.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileFriends" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/friends.jsp" cascade="true"/>
+</definition>
+
+<definition name="profilePosts" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Posts" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/posts.jsp" cascade="true"/>
+</definition>
+
+ <definition name="profilePlays" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Plays" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/plays.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileAlbums" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Albums" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/albums.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileSettings" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Settings" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/settings.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileAdd" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Settings" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/add.jsp" cascade="true"/>
+</definition>
+
+<definition name="profileMessages" extends="commonProfile1.9">
+  <put-attribute name="title" value="Profile Messages" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/messages.jsp" cascade="true"/>
+</definition>
+
+<definition name="profilePicUpload" extends="commonProfile1.9">
+  <put-attribute name="title" value="Upload Profile Picture" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/uploads/profilePicUpload.jsp"/>
+</definition>
+
+<definition name="profileMediaList" extends="commonProfile1.9">
+  <put-attribute name="title" value="Media List" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/uploads/profileMediaList.jsp"/>
+</definition>
+
+<definition name="conversationIndex" extends="commonProfile1.9">
+  <put-attribute name="title" value="Message" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/conversations/index.jsp" cascade="true"/>
+</definition>
+
+<definition name="conversationAdd" extends="commonProfile1.9">
+  <put-attribute name="title" value="New Message" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/conversations/add.jsp" cascade="true"/>
+</definition>
+
+<definition name="conversationView" extends="commonProfile1.9">
+  <put-attribute name="title" value="Message" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/conversations/view.jsp" cascade="true"/>
+</definition>
+
+<definition name="conversate" extends="commonProfile1.9">
+  <put-attribute name="title" value="Message" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/conversations/conversate.jsp" cascade="true"/>
+</definition>
+
+
+<definition name="conversateWith" extends="commonProfile1.9">
+  <put-attribute name="title" value="Message" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/conversations/conversateWith.jsp" cascade="true"/>
+</definition>
+
+
+<definition name="userPasswordUpdate" extends="commonProfile1.9">
+  <put-attribute name="title" value="Password Update" cascade="true"/>
+  <put-attribute name="body" value="/WEB-INF/views/jsp/users/updatePassword.jsp" cascade="true"/>
+</definition>
+
+<!-- Shop Pages -->
+	
+
+<definition name="rootShop1.9">
+
+	<put-attribute name="title" value="Shop" />
+	<put-attribute name="topbar" value="/WEB-INF/views/layout1.9/shop/topbar.jsp" />
+	<put-attribute name="navbar" value="/WEB-INF/views/layout1.9/shop/navbar.jsp" />
+	<put-attribute name="slider" value="/WEB-INF/views/layout1.9/shop/slider.jsp" />
+	<put-attribute name="subscribe" value="/WEB-INF/views/layout1.9/shop/subscribe.jsp" />
+	<put-attribute name="sponsor" value="/WEB-INF/views/layout1.9/shop/sponsor.jsp" />
+	<put-attribute name="footer" value="/WEB-INF/views/layout1.9/shop/footer.jsp" />
+	<put-attribute name="headTag" value="/WEB-INF/views/layout1.9/shop/fileHead.jsp" />
+	
+</definition>
+
+<definition name="commonShop" extends="rootShop1.9" template="/WEB-INF/views/layout1.9/shop/default.jsp">
+  <put-attribute name="title" value="Shop" />
+</definition>
+
+<definition name="shopHome" extends="commonShop">
+  <put-attribute name="title" value="Shop" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/shops/home.jsp" />
+</definition>
+
+
+
+<definition name="productAdd" extends="commonShop">
+  <put-attribute name="title" value="Shop" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/products/add.jsp" />
+</definition>
+
+<definition name="productView" extends="commonShop">
+  <put-attribute name="title" value="Shop" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/products/view.jsp" />
+</definition>
+
+<!-- Login and Register-->
+
+<definition name="loginLayout" template="/WEB-INF/views/layout/login.jsp">
+  <put-attribute name="title" value="Sign In" />
+</definition>
+
+<definition name="registerLayout" extends="root" template="/WEB-INF/views/layout/register.jsp">
+  <put-attribute name="title" value="Register" />
+</definition>
+
+<definition name="userRegister" extends="registerLayout">
+  <put-attribute name="title" value="Register" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/users/register.jsp" />
+</definition>
+
+<definition name="userLogin" extends="loginLayout">
+  <put-attribute name="title" value="Sign In" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/users/login.jsp" />
+</definition>
+
+<definition name="registerLayout" extends="root" template="/WEB-INF/views/layout/register.jsp">
+  <put-attribute name="title" value="Register" />
+</definition>
+
+<!-- Admin Pages -->
+
+<definition name="indexposts" extends="commonBlog1.9">
+    <put-attribute name="title" value="Posts" />
+    <put-attribute name="body" value="/WEB-INF/views/jsp/posts/index.jsp" />
+</definition>
+
+<definition name="userIndex" extends="commonBlog1.9">
+    <put-attribute name="title" value="Users" />
+    <put-attribute name="body" value="/WEB-INF/views/jsp/users/index.jsp" />
+</definition>
+
+<definition name="profileIndex" extends="commonBlog1.9">
+    <put-attribute name="title" value="Profiles" />
+    <put-attribute name="body" value="/WEB-INF/views/jsp/profiles/index.jsp" />
+</definition>
+
+
+<definition name="userAdd" extends="commonBlog1.9">
+  <put-attribute name="title" value="Add new User" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/users/add.jsp" />
+</definition>
+
+<definition name="userEdit" extends="commonBlog1.9">
+  <put-attribute name="title" value="Users" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/users/edit.jsp" />
+</definition>
+
+<definition name="adminDashboard" extends="commonBlog1.9">
+  <put-attribute name="title" value="Admin - Dashboard" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/admin/dashboard.jsp"/>
+</definition>
+
+<definition name="adminFeatured" extends="commonBlog1.9">
+  <put-attribute name="title" value="Choose Featured Items" />
+  <put-attribute name="body" value="/WEB-INF/views/jsp/admin/featured.jsp" />
+</definition>
+
+<!-- Erros Exceptions -->
+
+<definition name="errorout" template="/WEB-INF/views/layout/errorout.jsp">
+    <put-attribute name="title" value="Error" />
+</definition>
+
+
+<definition name="pageDenied" extends="errorout">
+    <put-attribute name="title" value="Access Denied to this Page" />
+    <put-attribute name="body" value="/WEB-INF/views/jsp/users/accessdenied.jsp" />
+</definition>
+
+<!-- Others -->
+
+<definition name="show" template="/WEB-INF/views/layout/showroom.jsp">
+  <put-attribute name="title" value="Elevysi" />
+</definition>
+
+<definition name="showroom" extends="show">
+    <put-attribute name="title" value="Blog" />
+    <put-attribute name="body" value="/WEB-INF/views/jsp/pages/showroom.jsp" />
+    <put-attribute name="current" value="index" />
+</definition>
+  
+</tiles-definitions>
