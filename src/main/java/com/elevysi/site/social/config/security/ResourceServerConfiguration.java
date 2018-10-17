@@ -17,9 +17,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .requestMatchers().antMatchers("/api/**")
         .and()
         .authorizeRequests()
-        .antMatchers("/api/public/**").permitAll()
-        .antMatchers(HttpMethod.DELETE, "/api/delete/**").hasRole("ADMIN")
-        .anyRequest().authenticated();
+          .antMatchers(HttpMethod.DELETE, "/api/delete/**").hasRole("ADMIN")
+          .anyRequest().authenticated();
     }
 
 }

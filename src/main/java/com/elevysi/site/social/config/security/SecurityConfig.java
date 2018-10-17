@@ -107,6 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return map -> {
 //        	String principalUsername = (String) map.get("user");
         	String principalUsername = (String) map.get("name");
+
         	
         	UserDTO user = authFeignClient.getUserByUsername(principalUsername);
         	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
