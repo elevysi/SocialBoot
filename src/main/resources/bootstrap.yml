@@ -10,3 +10,19 @@ spring:
     config:
       uri: http://localhost:8888
       enabled: true
+      
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+#      clientId: clienty
+#      clientSecret: Fields2017
+      clientId: web
+      clientSecret: secret
+      scope:
+        read
+      accessTokenUri: http://localhost:8100/oauth/token
+      userAuthorizationUri: http://localhost:8100/oauth/authorize
+    resource:
+      userInfoUri: http://localhost:8100/api/user

@@ -1,20 +1,15 @@
 package com.elevysi.site.social.entity;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "profile_types")
-public class ProfileType implements Serializable{
+public class ProfileType extends AbstractEntity{
 	
 	/**
 	 * 
@@ -25,16 +20,17 @@ public class ProfileType implements Serializable{
 	private Integer id;
 	private String name;
 	
-	@OneToMany(mappedBy ="profileType", fetch=FetchType.LAZY)
-	private Set <Profile> profiles = new HashSet<Profile>();
+//	@OneToMany(mappedBy ="profileType", fetch=FetchType.LAZY)
+//	private Set <Profile> profiles = new HashSet<Profile>();
+
+//	public Set<Profile> getProfiles() {
+//		return profiles;
+//	}
+//	public void setProfiles(Set<Profile> profiles) {
+//		this.profiles = profiles;
+//	}
 	
 	
-	public Set<Profile> getProfiles() {
-		return profiles;
-	}
-	public void setProfiles(Set<Profile> profiles) {
-		this.profiles = profiles;
-	}
 	public Integer getId() {
 		return id;
 	}

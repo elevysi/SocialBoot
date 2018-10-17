@@ -1,6 +1,5 @@
 package com.elevysi.site.social.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,28 +12,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.FilterJoinTable;
-import org.hibernate.annotations.Where;
-import org.hibernate.annotations.WhereJoinTable;
+
 
 @Entity
 @Table(name = "profiles")
 @FilterDef(name="userProfileType", defaultCondition="profile_type_id = 1")
-public class Profile implements Serializable{
+public class Profile extends AbstractEntity{
 	
 	/**
 	 * 
@@ -48,29 +42,9 @@ public class Profile implements Serializable{
 	private String name;
 	private String title;
 	
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
 	@Column(name="profile_type_id", nullable = false, insertable = false, updatable = false)
 	private Integer profile_type_id;
 	
-	public Integer getProfile_type_id() {
-		return profile_type_id;
-	}
-
-
-	public void setProfile_type_id(Integer profile_type_id) {
-		this.profile_type_id = profile_type_id;
-	}
-
-
 	@Column(name = "created", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
@@ -79,15 +53,23 @@ public class Profile implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modified;
 	
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profile", fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private Set<Publication> publications = new HashSet<Publication>();
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private User user;
+	@JoinColumn(name = "profile_type_id", referencedColumnName = "id")
+	private ProfileType profileType;
 	
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "owningProfilePicture", fetch=FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	@org.hibernate.annotations.Filter(name="itemTableIs", condition="link_table=:link_tableValue and display=:displayValue")
+	private Set<Upload> profilePicture = new HashSet<Upload>();
+	
+	
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "owningCoverUpload", fetch=FetchType.LAZY)
+	@Fetch(FetchMode.SUBSELECT)
+	@org.hibernate.annotations.Filter(name="itemTableIs", condition="link_table=:link_tableValue and display=:displayValue")
+	private Set<Upload> coverUploads = new HashSet<Upload>();
+
+	@Column(name = "user_id")
+	private long userID;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="profile_friends",
@@ -101,49 +83,30 @@ public class Profile implements Serializable{
 	@Fetch(FetchMode.SUBSELECT)
     private Set<Profile> reverse_friends;
 	
-	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "owningProfilePicture", fetch=FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private Set<Avatar> profilePicture = new HashSet<Avatar>();
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
+	public Integer getProfile_type_id() {
+		return profile_type_id;
+	}
 	
-	public Set<Avatar> getProfilePicture() {
-		return profilePicture;
+	public void setProfile_type_id(Integer profile_type_id) {
+		this.profile_type_id = profile_type_id;
+	}
+	
+	public long getUserID() {
+		return userID;
 	}
 
 
-	public void setProfilePicture(Set<Avatar> profilePicture) {
-		this.profilePicture = profilePicture;
+	public void setUserID(long userID) {
+		this.userID = userID;
 	}
-
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "uploadOwner", fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SUBSELECT)
-	private Set<Avatar> uploads;
-	
-	
-//	@OneToOne(mappedBy="owningCorrespondentProfile",fetch=FetchType.LAZY)
-//	private Correspondent correspondent;
-//	
-//	public Correspondent getCorrespondant() {
-//		return correspondent;
-//	}
-//
-//
-//	public void setCorrespondant(Correspondent correspondent) {
-//		this.correspondent = correspondent;
-//	}
-
-
-
-	public Set<Avatar> getUploads() {
-		return uploads;
-	}
-
-
-	public void setUploads(Set<Avatar> uploads) {
-		this.uploads = uploads;
-	}
-
 
 	private String description;
 	
@@ -156,11 +119,6 @@ public class Profile implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="publication_id")
-	private Publication publication;
-
 
 	public String getName() {
 		return name;
@@ -169,72 +127,6 @@ public class Profile implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-
-	public Set<Profile> getReverse_friends() {
-		return reverse_friends;
-	}
-
-
-	public void setReverse_friends(Set<Profile> reverse_friends) {
-		this.reverse_friends = reverse_friends;
-	}
-
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profile")
-	private Set<Message> sentMessages = new HashSet<Message>();
-	
-//	@ManyToMany(mappedBy = "messageRecipeints", fetch = FetchType.LAZY)
-//	private Set<Message> recievedMessages = new HashSet<Message>();
-	
-		
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "profile_type_id", referencedColumnName = "id")
-	private ProfileType profileType;
-	
-	
-
-
-
-
-	public Set<Message> getSentMessages() {
-		return sentMessages;
-	}
-
-
-	public void setSentMessages(Set<Message> sentMessages) {
-		this.sentMessages = sentMessages;
-	}
-
-
-//	public Set<Message> getRecievedMessages() {
-//		return recievedMessages;
-//	}
-
-
-//	public void setRecievedMessages(Set<Message> recievedMessages) {
-//		this.recievedMessages = recievedMessages;
-//	}
-
-
-	public ProfileType getProfileType() {
-		return profileType;
-	}
-
-
-	public void setProfileType(ProfileType profileType) {
-		this.profileType = profileType;
-	}
-
-
-	public Set<Profile> getFriends() {
-		return friends;
-	}
-
-
-	public void setFriends(Set<Profile> friends) {
-		this.friends = friends;
 	}
 
 
@@ -267,16 +159,6 @@ public class Profile implements Serializable{
 		this.modified = modified;
 	}
 
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
 	@Override
 	public boolean equals(Object object) {
@@ -303,34 +185,46 @@ public class Profile implements Serializable{
 	    return id != null ? id.hashCode() : 0; //https://stackoverflow.com/questions/21535029/what-must-be-hashcode-of-null-objects-in-java
 	}
 	
-	
-	public void addFriend(Profile friend){
-		if(friend != null){
-			
-			if(this.getFriends().contains(friend)){
-				this.getFriends().remove(friend);
-				this.getFriends().add(friend);
-				
-			}else{
-				getFriends().add(friend);
-			}
-			
-			
-		}
+	public ProfileType getProfileType() {
+		return profileType;
+	}
+
+	public void setProfileType(ProfileType profileType) {
+		this.profileType = profileType;
+	}
+
+	public Set<Upload> getProfilePicture() {
+		return profilePicture;
+	}
+
+
+	public void setProfilePicture(Set<Upload> profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public Set<Upload> getCoverUploads() {
+		return coverUploads;
+	}
+
+	public void setCoverUploads(Set<Upload> coverUploads) {
+		this.coverUploads = coverUploads;
+	}
+
+	public Set<Profile> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<Profile> friends) {
+		this.friends = friends;
+	}
+
+	public Set<Profile> getReverse_friends() {
+		return reverse_friends;
+	}
+
+	public void setReverse_friends(Set<Profile> reverse_friends) {
+		this.reverse_friends = reverse_friends;
 	}
 	
-	public void removeFriend(Profile friend){
-		getFriends().remove(friend);
-	}
-
-
-	public Publication getPublication() {
-		return publication;
-	}
-
-
-	public void setPublication(Publication publication) {
-		this.publication = publication;
-	}
 	
 }
